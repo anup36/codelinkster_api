@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<title>Search</title>
+</head>
+<body>
+  <div id="buttons">
+  <label> <input id="query" value='cats' type="text"/><button id="search-button"  onclick="keyWordsearch()">Search</button></label>
+  </div>
+  <div id="search-container">
+
+  </div>
+    <img src="" id="vide_img">
+    <p id="vide_title"> </p>
+    <p id="vide_des"> </p>
+
+
+
+<video width="400" id="ytb" value="anupss" controls>
+  <source value="anup" src="mov_bbb.mp4" id="ytb_src" type="video/mp4">
+  <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
+  Your browser does not support HTML5 video.
+</video>
+
+  <script>
+    function keyWordsearch(){
+      // alert("hello");
+           q = document.getElementById('query').value;
+            // alert(q);
+            gapi.client.setApiKey('AIzaSyCshFBn_n06yb94_UyUeIOmvK9a93ZZH3k');
+            gapi.client.load('youtube', 'v3', function() {
+                    makeRequest();
+            });
+    }
+    function makeRequest() {
+
+            var request = gapi.client.youtube.search.list({
+                       q: q,
+                    part: 'snippet'                        
+            });
+            request.execute(function(response) {
+                    var str = response;
+                    // var str = JSON.stringify(response.result);
+                    // var obj = str;
+                    console.log(str);
+                    console.table(str.items);
+                    videoId = str["items"][0].id.videoId;
+                    var data = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+videoId+'&key=AIzaSyCshFBn_n06yb94_UyUeIOmvK9a93ZZH3k';
+
+                   $.ajax({                                            
+                        url: data,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);
+                          // $('#search-container').html('<pre>' +data + '</pre>');
+                          $('#vide_img').attr('src',  data.items[0].snippet.thumbnails.high.url);
+                          // $('#ytb_img').css('width', data.items[0].snippet.thumbnails.high.width);
+                          // $('#ytb_img').css('height', data.items[0].snippet.thumbnails.high.height);
+                          $('#vide_title').text(data.items[0].snippet.title);
+                          $('#vide_des').text(data.items[0].snippet.description);
+                          var player = document.getElementById('ytb');
+                          var mp4Vid = document.getElementById('ytb_src');
+                          player.pause();
+
+                          alert($('#ytb').val())
+                            // $('#ytb_img').attr('src',  data.items[0].snippet.thumbnails.high.url);
+                            // $('#ytb_img').css('width', data.items[0].snippet.thumbnails.high.width);
+                            // $('#ytb_img').css('height', data.items[0].snippet.thumbnails.high.height);
+                            // $('#vid_titl').text(data.items[0].snippet.title);
+                            // $('#vid_descrip').text(data.items[0].snippet.description);
+
+                            console.log(data.items[0].snippet.thumbnails.default);
+                            console.log(data.items[0].snippet.title);
+                            console.log(data.items[0].snippet.description)
+                        }, 
+                        error: function(err){
+                            console.log(err);
+                        }
+                    });                    
+
+                    // $('#search-container').html('<pre>' +data + '</pre>');
+                    // $('#vide_img').attr('src',  data.items[0].snippet.thumbnails.high.url);
+                    // // $('#ytb_img').css('width', data.items[0].snippet.thumbnails.high.width);
+                    // // $('#ytb_img').css('height', data.items[0].snippet.thumbnails.high.height);
+                    // $('#vide_title').text(data[0].items);
+                    // $('#vide_des').text(data.items[0].snippet.description);
+            });
+    }
+ </script>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+ <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"> </script>
+</body>
+</html>
