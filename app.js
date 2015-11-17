@@ -58,18 +58,16 @@ app.post('/python', urlencodedParser, function (req, res){
       process.exec('python hello.py', function (err,stdout,stderr){
         if(err) {
           console.log("No Compiling",stderr);
-          res.send(stderr);
-          // res.json({err: stderr})
+          // res.send(stderr);
+          res.json({err: stderr})
           res.end();
         } else {
           console.log("Python Code Compile Successfull-------->",stdout);
           // var result = {data: stdout};
           var result = stdout.replace(/\n|\r/g, "");
           res.setHeader('Content-Type', 'application/json');
-          res.json({res: result});
+          res.json({output: result});
           res.end();
-          // res.send(JSON.stringify({output: result},null, 3)); // --> null for replace and 3 for space on ouptput 
-          // res.json(stdout);
         }
       });
     }
@@ -109,10 +107,9 @@ app.post('/node', urlencodedParser, function (req, res){
           // var result = {data: stdout};
           // var result = stdout.replace(/\n|\r/g, "");
           // res.setHeader('Content-Type', 'application/json');
-          res.json(stdout);
+          res.json({output:stdout});
           res.end();
-          // res.send(JSON.stringify({output: result},null, 3)); // --> null for replace and 3 for space on ouptput 
-          // res.json(stdout);
+
         }
       });
     }
@@ -130,7 +127,8 @@ app.post('/java', urlencodedParser, function (req, res){
     fs.writeFile('hello.java', code, function (err,data){
         if(err){
             console.log("Error into writting File",err);
-            res.send(err);
+            // res.send(err);
+            res.json({err: err});
             res.end();
         } else {
             console.log("File Data written",data);
@@ -140,7 +138,8 @@ app.post('/java', urlencodedParser, function (req, res){
     fs.readFile('hello.java', 'utf8', function (err, data){
         if(err){
             console.log("Error in reading Data",err);
-            res.send(err);
+            res.json({err: err});
+            // res.send(err);
             res.end();
         } else {
             console.log("Data Read Successfull",data);
@@ -148,18 +147,21 @@ app.post('/java', urlencodedParser, function (req, res){
             process.exec('javac hello.java', function (err, stdout, stderr){
                 if(err){
                     console.log("COmpiling Error", stderr);
-                    res.send(stderr);
+                    res.json({compileError: stderr});
+                    // res.send(stderr);
                     res.end();
                 } else {
                     console.log("Compile Successfull", stdout);
                     process.exec('java hello', function (err, stdout, stderr){
                         if(err) {
-                            console.log("Java is compile", stderr);
-                            res.send(stderr);
+                            // console.log("Java is compile", stderr);
+                            res.json({err: stderr});
+                            // res.send(stderr);
                             res.end();
                         } else {
                             console.log("Java OUPT", stdout);
-                            res.send(stdout);
+                            // res.send(stdout);
+                            res.json({output:stdout});
                             res.end();
                         }
                     });  
