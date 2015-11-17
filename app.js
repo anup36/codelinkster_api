@@ -1,7 +1,7 @@
-var express = require('express');
+var express    = require('express');
 var bodyParser = require('body-parser');
 var fs         = require('fs');
-var process = require('child_process');
+var process    = require('child_process');
 // var console = require('rangoli');
 
 var app = new express();
@@ -190,11 +190,12 @@ app.post('/java', urlencodedParser, function (req, res){
 //   res.send(JSON.stringify(response));
 // })
 
-var server = app.listen(3000,function (){
-  var host = server.address().adress
-  var port = server.address().port
+// var server = app.listen(3000,function (){
+//   var host = server.address().adress
+//   var port = server.address().port
 
-  console.log("Example app listening at http://%s:%s", host, port);
-})
+//   console.log("Example app listening at http://%s:%s", host, port);
+// })
 
+module.exports = app;
 
