@@ -1,19 +1,14 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
-var fs         = require('fs');
-var process    = require('child_process');
-// var console = require('rangoli');
-
+var console = require('rangoli');
+var compile = require('./compile');
 var app = new express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended:false });
 
 
 app.use(express.static('public'));
-// app.set('json spaces', 2);
-// app.set('json relacer', replacer);
-// var replacer = app.set('json replacer');
-// var spaces = app.set('json spaces', 40);
+
 
 app.get('/',function (req,res){
   console.log("Go to Get HomePage Request");
@@ -32,47 +27,26 @@ app.get('/code.html',function (req,res){
 
 //Python Compiling Code
 app.post('/python', urlencodedParser, function (req, res){
-  var code = req.body.code;
-  console.log(code);
-  // Writing Python Code into Hello.py
-  fs.writeFile('hello.py', code, function(err,data){
-    if(err) {
-      console.log("error to wrting file",err);
-      // res.send(err);
-      res.json({err: err})
-      res.end();
-    } else {
-      console.log("File written Successfull",data);
-    }
-  });
-  // Reading the Coding File
-  fs.readFile('hello.py', 'utf8', function (err,data){
-    if(err) {
-      console.log("Error to reading file",err);
-      // res.send(err);
-      res.json({err: err});
-      res.end();
-    } else {
-      console.log("FIle Read Successfull",data);
-      var data = data;
-      process.exec('python hello.py', function (err,stdout,stderr){
-        if(err) {
-          console.log("No Compiling",stderr);
-          // res.send(stderr);
-          res.json({err: stderr})
-          res.end();
-        } else {
-          console.log("Python Code Compile Successfull-------->",stdout);
-          // var result = {data: stdout};
-          var result = stdout.replace(/\n|\r/g, "");
-          res.setHeader('Content-Type', 'application/json');
-          res.json({output: result});
-          res.end();
-        }
-      });
-    }
-  });
-  
+    var code = req.body.code.trim(), status;
+
+    console.succ(code);
+    var status = code.length <=0 ? console.err("No Data Found") : status = "active";
+
+    if(code!=undefined && code!=null && status=="active"){
+        compile.python(code, function (err, data){
+          if(err){
+            console.err(err);
+            res.status(404).json(err);
+          } else {
+            console.succ(data);
+            res.json(data);
+          }
+        });
+      } else {
+        console.err("No Data found");
+        res.json("NO data found");
+        res.end();
+      }
 });
 
 // Node Compiling Code

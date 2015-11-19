@@ -2,6 +2,41 @@
 <html>
 <head>
 	<title></title>
+	<script src="js/jquery.js" type="text/javascript"></script>
+	<button onclick="aa()">ajax call example</button>
+	<script>
+	function aa(){
+		alert(document.getElementById('python_code').value);
+		$.ajax({
+			url:  'http://localhost:3000/python',
+			type: 'POST',
+			data: 'code='+document.getElementById('python_code').value,
+			success: function(data){
+				console.log(data);
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	}
+
+	// $.ajax({
+	//   url: 'getTwitterFollowers.php',
+	//   type: 'GET',
+	//   data: 'twitterUsername=jquery4u',
+	//   success: function(data) {
+	// 	//called when successful
+	// 	$('#ajaxphp-results').html(data);
+	//   },
+	//   error: function(e) {
+	// 	//called when there is an error
+	// 	//console.log(e.message);
+	//   }
+	// });
+
+
+	</script>
+	</script>
 </head>
 <body>
 <form action="http://localhost:3000/java" method="POST">
@@ -15,7 +50,7 @@
 <form action="http://localhost:3000/python" method="POST">
 	</br>
 	Python Code 
-	<textarea  rows= "20" cols="45" name="code"> </textarea></br>
+	<textarea  rows= "20" id="python_code" cols="45" name="code"> </textarea></br>
 	
 	<input type="submit" value="submit">
 </form>
