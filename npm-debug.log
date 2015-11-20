@@ -1,0 +1,120 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'rangoli' ]
+2 info using npm@2.13.0
+3 info using node@v0.12.7
+4 verbose install initial load of /usr/local/lib/package.json
+5 verbose readDependencies loading dependencies from /usr/local/lib/package.json
+6 silly cache add args [ 'rangoli', null ]
+7 verbose cache add spec rangoli
+8 silly cache add parsed spec { raw: 'rangoli',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'rangoli',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: '*',
+8 silly cache add   type: 'range' }
+9 silly addNamed rangoli@*
+10 verbose addNamed "*" is a valid semver range for rangoli
+11 silly addNameRange { name: 'rangoli', range: '*', hasData: false }
+12 silly mapToRegistry name rangoli
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/rangoli
+16 verbose addNameRange registry:https://registry.npmjs.org/rangoli not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/rangoli
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 3:16:03 AM
+20 verbose request using bearer token for auth
+21 verbose request id d2e7b542485bd83c
+22 verbose etag "9VD02V0J5LQCE16HRZNQEIDOX"
+23 http request GET https://registry.npmjs.org/rangoli
+24 http 304 https://registry.npmjs.org/rangoli
+25 silly get cb [ 304,
+25 silly get   { 'cache-control': 'max-age=60',
+25 silly get     'accept-ranges': 'bytes',
+25 silly get     date: 'Thu, 19 Nov 2015 21:46:06 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-sin6921-SIN',
+25 silly get     'x-cache': 'MISS',
+25 silly get     'x-cache-hits': '0',
+25 silly get     'x-timer': 'S1447969565.591550,VS0,VE871' } ]
+26 verbose etag https://registry.npmjs.org/rangoli from cache
+27 verbose get saving rangoli to /Users/anuppanwar/.npm/registry.npmjs.org/rangoli/.cache.json
+28 silly addNameRange number 2 { name: 'rangoli', range: '*', hasData: true }
+29 silly addNameRange versions [ 'rangoli', [ '1.0.1', '0.0.1', '0.1.6', '0.1.7' ] ]
+30 silly addNamed rangoli@0.1.7
+31 verbose addNamed "0.1.7" is a plain semver version for rangoli
+32 silly cache afterAdd rangoli@0.1.7
+33 verbose afterAdd /Users/anuppanwar/.npm/rangoli/0.1.7/package/package.json not in flight; writing
+34 verbose afterAdd /Users/anuppanwar/.npm/rangoli/0.1.7/package/package.json written
+35 silly install resolved [ { name: 'rangoli',
+35 silly install resolved     version: '0.1.7',
+35 silly install resolved     description: 'Display your Program Output on Terminal in Colorfull Text',
+35 silly install resolved     main: 'index.js',
+35 silly install resolved     scripts: { test: 'test.js' },
+35 silly install resolved     keywords:
+35 silly install resolved      [ 'color',
+35 silly install resolved        'Terminal Color',
+35 silly install resolved        'Node Program Output in Color',
+35 silly install resolved        'colorfull Output on Screen',
+35 silly install resolved        'node',
+35 silly install resolved        'module',
+35 silly install resolved        'Node',
+35 silly install resolved        'module',
+35 silly install resolved        'to',
+35 silly install resolved        'color',
+35 silly install resolved        'a',
+35 silly install resolved        'String' ],
+35 silly install resolved     author: { email: 'anup.panwar36@gmail.com' },
+35 silly install resolved     license: 'ISC',
+35 silly install resolved     readme: 'Color Your Terminal\n=========\n\nA moudle that will display your Output on Terminal in Colorfull Text.\n\n## Installation\n\n  `npm install rangoli`\n\n## Usage\n\n    var console = require(\'rangoli\');\n\n\tconsole.prime("Primary", "Color");   //Primary <- Blue Color\n\tconsole.err("Error", "Color")\t   // Error   <- Red Color\n\tconsole.succ("Success", "Color")   // Successs <- Green Color\n\tconsole.info("Info", "Color")     // Info      <- Sky Blue Color\n\tconsole.warn("Warning", "Color") // Warning\t  <- Yellow Color\n\tconsole.log("LOg", "Color")     // Log         <- Deafult Terminal Color\n  \n## Tests\n\n  `npm test.js`\n\n',
+35 silly install resolved     readmeFilename: 'README.md',
+35 silly install resolved     _id: 'rangoli@0.1.7',
+35 silly install resolved     _shasum: 'a911530b5ee6bbcd197c010d85a726f09db9e4c6',
+35 silly install resolved     _from: 'rangoli@*' } ]
+36 info install rangoli@0.1.7 into /usr/local/lib
+37 info installOne rangoli@0.1.7
+38 verbose installOne of rangoli to /usr/local/lib not in flight; installing
+39 verbose lock using /Users/anuppanwar/.npm/_locks/rangoli-4d0991933c338b24.lock for /usr/local/lib/node_modules/rangoli
+40 silly install write writing rangoli 0.1.7 to /usr/local/lib/node_modules/rangoli
+41 verbose unbuild lib/node_modules/rangoli
+42 info preuninstall rangoli@0.1.7
+43 info uninstall rangoli@0.1.7
+44 verbose unbuild rmStuff rangoli@0.1.7 from /usr/local/lib/node_modules
+45 info postuninstall rangoli@0.1.7
+46 silly gentlyRm /usr/local/lib/node_modules/rangoli is being purged from base /usr/local
+47 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/rangoli
+48 silly vacuum-fs purging /usr/local/lib/node_modules/rangoli
+49 verbose unlock done using /Users/anuppanwar/.npm/_locks/rangoli-4d0991933c338b24.lock for /usr/local/lib/node_modules/rangoli
+50 verbose stack Error: EACCES, unlink '/usr/local/lib/node_modules/rangoli/README.md'
+50 verbose stack     at Error (native)
+51 verbose cwd /Users/anuppanwar/Downloads/project/express/codelinkster_api
+52 error Darwin 14.5.0
+53 error argv "node" "/usr/local/bin/npm" "install" "-g" "rangoli"
+54 error node v0.12.7
+55 error npm  v2.13.0
+56 error path /usr/local/lib/node_modules/rangoli/README.md
+57 error code EACCES
+58 error errno -13
+59 error Error: EACCES, unlink '/usr/local/lib/node_modules/rangoli/README.md'
+59 error     at Error (native)
+59 error  { [Error: EACCES, unlink '/usr/local/lib/node_modules/rangoli/README.md']
+59 error   errno: -13,
+59 error   code: 'EACCES',
+59 error   path: '/usr/local/lib/node_modules/rangoli/README.md' }
+60 error Please try running this command again as root/Administrator.
+61 verbose exit [ -13, true ]
+62 verbose unbuild lib/node_modules/rangoli
+63 info preuninstall rangoli@0.1.7
+64 info uninstall rangoli@0.1.7
+65 verbose unbuild rmStuff rangoli@0.1.7 from /usr/local/lib/node_modules
+66 info postuninstall rangoli@0.1.7
+67 silly gentlyRm /usr/local/lib/node_modules/rangoli is being purged from base /usr/local
+68 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/rangoli
+69 silly vacuum-fs purging /usr/local/lib/node_modules/rangoli
+70 error error rolling back Error: EACCES, unlink '/usr/local/lib/node_modules/rangoli/README.md'
+70 error error rolling back     at Error (native)
+70 error error rolling back  { [Error: EACCES, unlink '/usr/local/lib/node_modules/rangoli/README.md']
+70 error error rolling back   errno: -13,
+70 error error rolling back   code: 'EACCES',
+70 error error rolling back   path: '/usr/local/lib/node_modules/rangoli/README.md' }

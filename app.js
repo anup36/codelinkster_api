@@ -27,26 +27,22 @@ app.get('/code.html',function (req,res){
 
 //Python Compiling Code
 app.post('/python', urlencodedParser, function (req, res){
-    var code = req.body.code.trim(), status;
-
-    console.succ(code);
+    var code = req.body.code, status;
+    code = code.trim();
     var status = code.length <=0 ? console.err("No Data Found") : status = "active";
-
+    var lang = "python";
     if(code!=undefined && code!=null && status=="active"){
-        compile.python(code, function (err, data){
-          if(err){
-            console.err(err);
-            res.status(404).json(err);
-          } else {
-            console.succ(data);
-            res.json(data);
-          }
-        });
-      } else {
-        console.err("No Data found");
+      compile.python(code, lang, function(err, data){
+        if(err){
+          res.status(404).json(err);
+        } else {
+          res.status(200).json(data);
+        }
+      });
+    } else {
         res.json("NO data found");
         res.end();
-      }
+    }
 });
 
 // Node Compiling Code
