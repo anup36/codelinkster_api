@@ -6,7 +6,14 @@ var app = new express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended:false });
 
+//FOr allowing origin and allow master
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+//nastay code start from herer
 app.use(express.static('public'));
 
 
