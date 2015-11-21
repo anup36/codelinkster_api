@@ -54,99 +54,78 @@ app.post('/python', urlencodedParser, function (req, res){
 
 // Node Compiling Code
 app.post('/node', urlencodedParser, function (req, res){
-  var code = req.body.code;
+  var code = req.body.code, status;
+  code = code.trim();
   console.log(code);
-  // Writing Python Code into Hello.py
-  fs.writeFile('hello.js', code, function(err,data){
-    if(err) {
-      console.log("error to wrting file",err);
-      res.json({error: err});
-    } else {
-      console.log("File written Successfull",data);
-    }
-  });
-  // Reading the Coding File
-  fs.readFile('hello.js', 'utf8', function (err,data){
-    if(err) {
-      console.log("Error to reading file",err);
-      res.json({error: err});
-      res.end();
-    } else {
-      console.log("FIle Read Successfull",data);
-      var data = data;
-      process.exec('node hello.js', function (err,stdout,stderr){
-        if(err) {
-          console.log("No Compiling",stderr);
-          res.json({error: stderr});
-          res.end();
+  var status = code.length <=0 ? console.err("No Data Found") : status = "active";
+  var lang = "node";
+    if(code!=undefined && code!=null && status=="active"){
+      compile.node(code, lang, function(err, data){
+        if(err){
+          res.status(404).json(err);
         } else {
-          console.log("Node Code Compile Successfull-------->",stdout);
-          // var result = {data: stdout};
-          // var result = stdout.replace(/\n|\r/g, "");
-          // res.setHeader('Content-Type', 'application/json');
-          res.json({output:stdout});
-          res.end();
-
+          res.status(200).json(data);
         }
       });
-    }
-  });
-  
+    } else {
+        res.json("NO data found");
+        res.end();
+    }  
 });
 
 
 
 // Java Compiling Code
-app.post('/java', urlencodedParser, function (req, res){
-    var code = req.body.code;
-    console.log(code);  
+// app.post('/java', urlencodedParser, function (req, res){
+//     var code = req.body.code;
+//     console.log(code);  
 
-    fs.writeFile('hello.java', code, function (err,data){
-        if(err){
-            console.log("Error into writting File",err);
-            // res.send(err);
-            res.json({err: err});
-            res.end();
-        } else {
-            console.log("File Data written",data);
-        }
-    });
+//     fs.writeFile('hello.java', code, function (err,data){
+//         if(err){
+//             console.log("Error into writting File",err);
+//             // res.send(err);
+//             res.json({err: err});
+//             res.end();
+//         } else {
+//             console.log("File Data written",data);
+//         }
+//     });
 
-    fs.readFile('hello.java', 'utf8', function (err, data){
-        if(err){
-            console.log("Error in reading Data",err);
-            res.json({err: err});
-            // res.send(err);
-            res.end();
-        } else {
-            console.log("Data Read Successfull",data);
-            var data = data;
-            process.exec('javac hello.java', function (err, stdout, stderr){
-                if(err){
-                    console.log("COmpiling Error", stderr);
-                    res.json({compileError: stderr});
-                    // res.send(stderr);
-                    res.end();
-                } else {
-                    console.log("Compile Successfull", stdout);
-                    process.exec('java hello', function (err, stdout, stderr){
-                        if(err) {
-                            // console.log("Java is compile", stderr);
-                            res.json({err: stderr});
-                            // res.send(stderr);
-                            res.end();
-                        } else {
-                            console.log("Java OUPT", stdout);
-                            // res.send(stdout);
-                            res.json({output:stdout});
-                            res.end();
-                        }
-                    });  
-                }
-            });
-        }
-    })
-})
+//     fs.readFile('hello.java', 'utf8', function (err, data){
+//         if(err){
+//             console.log("Error in reading Data",err);
+//             res.json({err: err});
+//             // res.send(err);
+//             res.end();
+//         } else {
+//             console.log("Data Read Successfull",data);
+//             var data = data;
+//             process.exec('javac hello.java', function (err, stdout, stderr){
+//                 if(err){
+//                     console.log("COmpiling Error", stderr);
+//                     res.json({compileError: stderr});
+//                     // res.send(stderr);
+//                     res.end();
+//                 } else {
+//                     console.log("Compile Successfull", stdout);
+//                     process.exec('java hello', function (err, stdout, stderr){
+//                         if(err) {
+//                             // console.log("Java is compile", stderr);
+//                             res.json({err: stderr});
+//                             // res.send(stderr);
+//                             res.end();
+//                         } else {
+//                             console.log("Java OUPT", stdout);
+//                             // res.send(stdout);
+//                             res.json({output:stdout});
+//                             res.end();
+//                         }
+//                     });  
+//                 }
+//             });
+//         }
+//     })
+// })
 // app.get('/process_get',function (req,res){
 //   response = {
 //     first_name :req.query.first_name,
