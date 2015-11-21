@@ -8,7 +8,7 @@
 	function aa(){
 		alert(document.getElementById('python_code').value);
 		$.ajax({
-			url:  'http://localhost:8080/node/',
+			url:  'http://54.169.232.186:8080/python/',
 			type: 'POST',
 			data: 'code='+document.getElementById('python_code').value,
 			success: function(data){

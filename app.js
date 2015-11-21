@@ -146,12 +146,12 @@ app.post('/node', urlencodedParser, function (req, res){
 //   res.send(JSON.stringify(response));
 // })
 
-var server = app.listen(8080,function (){
-  var host = server.address().adress
-  var port = server.address().port
+// var server = app.listen(8080,function (){
+//   var host = server.address().adress
+//   var port = server.address().port
 
-  console.log("Example app listening at http://%s:%s", host, port);
-})
+  console.log("Example app listening at http://%s:%s");
+// });
 
 module.exports = app;
 
