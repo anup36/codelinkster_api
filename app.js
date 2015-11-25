@@ -93,6 +93,26 @@ app.post('/ruby', urlencodedParser, function (req, res){
         res.end();
     }  
 });
+//C Code
+app.post('/c', urlencodedParser, function (req, res){
+  var code = req.body.code, status;
+  code = code.trim();
+  console.log(code);
+  var status = code.length <=0 ? console.err("No Data Found") : status = "active";
+  var lang = "c";
+    if(code!=undefined && code!=null && status=="active"){
+      compile.c(code, lang, function(err, data){
+        if(err){
+          res.status(404).json(err);
+        } else {
+          res.status(200).json(data);
+        }
+      });
+    } else {
+        res.json("NO data found");
+        res.end();
+    }  
+});
 
 
 // Java Compiling Code

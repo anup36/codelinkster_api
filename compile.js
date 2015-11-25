@@ -16,6 +16,9 @@ function Compiler() {
 		} else if(code && lang == 'ruby'){
 			fileWrite = 'hello.rb';
 			fileRead  = 'hello.rb';
+		} else if(code && lang == 'c'){
+			fileWrite = 'hello.c';
+			fileRead  = 'hello.c';
 		}
 
 		if(code && lang && fileRead && fileWrite) {	
@@ -135,6 +138,38 @@ Compiler.prototype.rubyCompile = function(code, lang, cb){
 	 	
 }
 
+Compiler.prototype.cCompile = function(code, lang, cb){
+	// return true;
+	saveCodeRun(code, lang, function (err, res){
+		if(err){
+			console.log(err);
+			cb(err);
+		} else {
+			console.log('code ready to exec--->',res);
+			process.exec('gcc hello.c -o hello', function (err,stdout,stderr){
+				console.err(err);
+				console.succ(stderr);
+				console.prime(stdout);
+				if(err || stderr){
+	              // console.warn("No Compiling",stderr);
+	              // console.err("No Compiling",err);
+	              cb(stderr);
+				} else {
+	              console.info("C Code Compile Successfull-------->",stdout);
+	              process.exec('./hello', function (err, stdout, stderr){
+	              	// var result = {data: stdout};
+	              // console.prime(stdout);
+	              // var result = stdout;
+	              	cb(null, stdout);
+	              })
+	              
+	            }
+            });
+		}
+	});
+	 	
+}
+
 module.exports = {
 	python : function(code, lang, cb) {
 		var compiler = new Compiler();
@@ -160,6 +195,17 @@ module.exports = {
 	ruby : function(code, lang, cb){
 		var compiler = new Compiler();
 			compiler.rubyCompile(code, lang, function(err, res){
+	            if(err) {
+	              cb(err);
+	            } else {
+	              cb(null, res);
+	         }
+		});
+
+	},
+	c : function(code, lang, cb){
+		var compiler = new Compiler();
+			compiler.cCompile(code, lang, function(err, res){
 	            if(err) {
 	              cb(err);
 	            } else {
