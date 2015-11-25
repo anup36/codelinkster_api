@@ -13,6 +13,9 @@ function Compiler() {
 		} else if(code && lang == 'node'){
 			fileWrite = 'hello.js';
 			fileRead  = 'hello.js';
+		} else if(code && lang == 'ruby'){
+			fileWrite = 'hello.rb';
+			fileRead  = 'hello.rb';
 		}
 
 		if(code && lang && fileRead && fileWrite) {	
@@ -97,25 +100,40 @@ Compiler.prototype.nodeCompile = function(code, lang, cb){
 	              var result = stdout;
 	              cb(null, result);
 	            }
-				
-	            // if(err) {
-	              // console.warn("No Compiling",stderr);
-	              // var err = stderr;
-	              // cb(stderr);
-	            // } else {
-	            //   console.info("Node Code Compile Successfull-------->",stdout);
-	            //   // var result = {data: stdout};
-	            //   console.prime(stdout);
-	            //   var result = stdout;
-	            //   cb(null, result);
-	            // }
             });
 		}
 	});
 	 	
 }
 
-
+Compiler.prototype.rubyCompile = function(code, lang, cb){
+	// return true;
+	saveCodeRun(code, lang, function (err, res){
+		if(err){
+			console.log(err);
+			cb(err);
+		} else {
+			console.log('code ready to exec--->',res);
+			process.exec('ruby hello.rb', function (err,stdout,stderr){
+				console.err(err);
+				console.succ(stderr);
+				console.prime(stdout);
+				if(err || stderr){
+	              console.warn("No Compiling",stderr, err);
+	              
+	              cb(err);
+				} else {
+	              console.info("ruby Code Compile Successfull-------->",stdout);
+	              // var result = {data: stdout};
+	              console.prime(stdout);
+	              var result = stdout;
+	              cb(null, result);
+	            }
+            });
+		}
+	});
+	 	
+}
 
 module.exports = {
 	python : function(code, lang, cb) {
@@ -131,6 +149,17 @@ module.exports = {
 	node : function(code, lang, cb){
 		var compiler = new Compiler();
 			compiler.nodeCompile(code, lang, function(err, res){
+	            if(err) {
+	              cb(err);
+	            } else {
+	              cb(null, res);
+	         }
+		});
+
+	},
+	ruby : function(code, lang, cb){
+		var compiler = new Compiler();
+			compiler.rubyCompile(code, lang, function(err, res){
 	            if(err) {
 	              cb(err);
 	            } else {

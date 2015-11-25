@@ -73,6 +73,26 @@ app.post('/node', urlencodedParser, function (req, res){
     }  
 });
 
+// Ruby Compiled COde
+app.post('/ruby', urlencodedParser, function (req, res){
+  var code = req.body.code, status;
+  code = code.trim();
+  console.log(code);
+  var status = code.length <=0 ? console.err("No Data Found") : status = "active";
+  var lang = "ruby";
+    if(code!=undefined && code!=null && status=="active"){
+      compile.ruby(code, lang, function(err, data){
+        if(err){
+          res.status(404).json(err);
+        } else {
+          res.status(200).json(data);
+        }
+      });
+    } else {
+        res.json("NO data found");
+        res.end();
+    }  
+});
 
 
 // Java Compiling Code
