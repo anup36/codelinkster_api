@@ -8,7 +8,7 @@
 	function aa(){
 		alert(document.getElementById('python_code').value);
 		$.ajax({
-			url:  'http://localhost:3000/ruby/',
+			url:  'http://54.169.232.186/:3000/ruby',
 			type: 'POST',
 			data: 'code='+document.getElementById('python_code').value,
 			success: function(data){
